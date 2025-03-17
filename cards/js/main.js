@@ -35,15 +35,15 @@ new Vue({
             this.isFirstColumnLocked = this.secondColumn.length >= 5;
         },
         addCard() {
-            if (!this.newCardTitle || this.newCardItems.some(item => !item.text)) {
-                alert('Заполните название карточки и хотя бы три пункта!');
+            if (!this.newCardTitle) {
+                alert('Заполните название карточки!');
                 return;
             }
     
             const newCard = {
                 id: Date.now(),
                 title: this.newCardTitle,
-                items: this.newCardItems.map(item => ({ text: item.text, completed: false }))
+                items: this.newCardItems.filter(item => item.text).map(item => ({ text: item.text, completed: false }))
             };
     
             if (this.firstColumn.length < 3) {
