@@ -8,7 +8,43 @@
 </head>
 <body>
     <div id="app">
-        
+        <div class="columns">
+            <div class="column">
+                <h2>Столбец 1 (макс. 3 карточки)</h2>
+                <div v-for="card in firstColumn" :key="card.id" class="card">
+                    <h3>{{ card.title }}</h3>
+                    <ul>
+                        <li v-for="(item, index) in card.items" :key="index">
+                            {{ item.text }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="column">
+                <h2>Столбец 2 (макс. 5 карточек)</h2>
+                <div v-for="card in secondColumn" :key="card.id" class="card">
+                    <h3>{{ card.title }}</h3>
+                    <ul>
+                        <li v-for="(item, index) in card.items" :key="index">
+                            {{ item.text }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="column">
+                <h2>Столбец 3 (без ограничений)</h2>
+                <div v-for="card in thirdColumn" :key="card.id" class="card">
+                    <h3>{{ card.title }}</h3>
+                    <ul>
+                        <li v-for="(item, index) in card.items" :key="index">
+                            {{ item.text }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
