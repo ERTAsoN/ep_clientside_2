@@ -32,6 +32,7 @@ new Vue({
             }
 
             this.checkFirstColumnLock();
+            this.saveDataToLocalStorage();
         },
         moveCard(index, fromColumn, toColumn) {
             const card = this[fromColumn].splice(index, 1)[0];
@@ -53,26 +54,48 @@ new Vue({
                 alert('Заполните минимум 3 пункта!');
                 return;
             }
-    
+
             const newCard = {
                 id: Date.now(),
                 title: this.newCardTitle,
-                items: this.newCardItems.filter(item => item.text).map(item => ({ text: item.text, completed: false }))
+                items: filledItems.map(item => ({ text: item.text, completed: false }))
             };
-    
+
             if (this.firstColumn.length < 3) {
                 this.firstColumn.push(newCard);
             } else {
                 alert('Первый столбец заполнен! Максимум 3 карточки.');
                 return;
             }
-    
+
+            this.saveDataToLocalStorage();
+
             this.newCardTitle = '';
             this.newCardItems = [
                 { text: '' },
                 { text: '' },
                 { text: '' }
             ];
+        },
+        saveDataToLocalStorage() {
+            const data = {
+                firstColumn: this.firstColumn,
+                secondColumn: this.secondColumn,
+                thirdColumn: this.thirdColumn,
+                isFirstColumnLocked: this.isFirstColumnLocked,
+            };
+
+            localStorage.setItem('boardData', JSON.stringify(data));
+        },
+        loadDataFromLocalStorage() {
+            const storedData = localStorage.getItem('boardData');
+            if (storedData) {
+                const data = JSON.parse(storedData);
+                this.firstColumn = data.firstColumn;
+                this.secondColumn = data.secondColumn;
+                this.thirdColumn = data.thirdColumn;
+                this.isFirstColumnLocked = data.isFirstColumnLocked;
+            }
         }
     },
     watch: {
@@ -84,5 +107,8 @@ new Vue({
             },
             deep: true
         }
+    },
+    mounted() {
+        this.loadDataFromLocalStorage();
     }
 });
