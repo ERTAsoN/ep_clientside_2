@@ -24,7 +24,7 @@
                     <h3>{{ card.title }}</h3>
                     <ul>
                         <li v-for="(item, i) in card.items" :key="i" :class="{ 'completed': item.completed }">
-                            <input type="checkbox" v-model="item.completed" @change="updateCardStatus(index, 'firstColumn')">
+                            <input type="checkbox" :disabled="isFirstColumnLocked" v-model="item.completed" @change="updateCardStatus(index, 'firstColumn')">
                             {{ item.text }}
                         </li>
                     </ul>
@@ -48,7 +48,7 @@
                     <h3>{{ card.title }}</h3>
                     <ul>
                         <li v-for="(item, i) in card.items" :key="i" :class="{ 'completed': item.completed }">
-                            <input type="checkbox" v-model="item.completed" @change="updateCardStatus(index, 'thirdColumn')">
+                            <input type="checkbox" disabled="disabled" v-model="item.completed" @change="updateCardStatus(index, 'thirdColumn')">
                             {{ item.text }}
                         </li>
                     </ul>
