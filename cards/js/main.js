@@ -21,7 +21,7 @@ new Vue({
             if (column === 'firstColumn' && completedCount / totalItems > 0.5) {
                 if (this.secondColumn.length >= 5) {
                     this.isFirstColumnLocked = true;
-                    alert("Освободите второй столбец!");
+                    alert('Освободите второй столбец!');
                 } else {
                     this.moveCard(index, column, 'secondColumn');
                 }
@@ -46,6 +46,11 @@ new Vue({
         addCard() {
             if (!this.newCardTitle) {
                 alert('Заполните название карточки!');
+                return;
+            }
+
+            if (this.isFirstColumnLocked) {
+                alert('Освободите второй столбец!');
                 return;
             }
 
