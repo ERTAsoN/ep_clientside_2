@@ -12,6 +12,7 @@ new Vue({
         thirdColumn: [],
         isFirstColumnLocked: false,
         searchQuery: '',
+        modalActive: false,
     },
     methods: {
         updateCardStatus(index, column) {
@@ -67,12 +68,12 @@ new Vue({
                 items: filledItems.map(item => ({ text: item.text, completed: false }))
             };
 
-            if (this.firstColumn.length < 3) {
-                this.firstColumn.push(newCard);
-            } else {
+            if (this.firstColumn.length >= 3) {
                 alert('Первый столбец заполнен! Максимум 3 карточки.');
                 return;
             }
+
+            this.firstColumn.push(newCard);
 
             this.closeModal();
 
@@ -142,5 +143,6 @@ new Vue({
     },
     mounted() {
         this.loadDataFromLocalStorage();
+        this.closeModal();
     }
 });

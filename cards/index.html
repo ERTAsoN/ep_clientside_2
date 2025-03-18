@@ -16,9 +16,12 @@
             <input v-model="searchQuery" placeholder="Название карточки" />
         </div>
 
-        <div id="modal" style="display: none">
+        <div id="modal">
             <div class="add-card-form">
-                <h2>Добавить новую карточку</h2>
+                <div class="modal-header">
+                    <h2>Добавить новую карточку</h2>
+                    <button @click="closeModal" class="close-modal-button">Закрыть</button>
+                </div>
                 <input v-model="newCardTitle" placeholder="Название карточки" />
                 <div v-for="(item, index) in newCardItems" :key="index">
                     <input v-model="item.text" :placeholder="'Пункт ' + (index + 1)" />

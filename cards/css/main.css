@@ -46,13 +46,23 @@ input[type="checkbox"] {
     margin-right: 5px;
 }
 
-.modal-window {
+#modal {
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-card-form .modal-header button {
+    width: 80px;
+    height: 35px;
 }
 
 .add-card-form {
@@ -89,4 +99,8 @@ input[type="checkbox"] {
 
 .add-card-form button:hover {
     background-color: #0056b3;
+}
+
+h2 {
+    margin-top: 0;
 }
