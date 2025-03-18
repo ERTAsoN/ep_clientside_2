@@ -8,19 +8,29 @@
 </head>
 <body>
     <div id="app">
-        <div class="add-card-form">
-            <h2>Добавить новую карточку</h2>
-            <input v-model="newCardTitle" placeholder="Название карточки" />
-            <div v-for="(item, index) in newCardItems" :key="index">
-                <input v-model="item.text" :placeholder="'Пункт ' + (index + 1)" />
+        <button @click="clearAllData">Очистить все данные</button>
+        <button @click="openModal">Добавить новую карточку</button>
+
+        <div class="search-form">
+            <h2>Поиск по названию карточки</h2>
+            <input v-model="searchQuery" placeholder="Название карточки" />
+        </div>
+
+        <div id="modal" style="display: none">
+            <div class="add-card-form">
+                <h2>Добавить новую карточку</h2>
+                <input v-model="newCardTitle" placeholder="Название карточки" />
+                <div v-for="(item, index) in newCardItems" :key="index">
+                    <input v-model="item.text" :placeholder="'Пункт ' + (index + 1)" />
+                </div>
+                <button @click="addCard">Добавить карточку</button>
             </div>
-            <button @click="addCard">Добавить карточку</button>
         </div>
 
         <div class="columns">
             <div class="column" :class="{ 'locked': isFirstColumnLocked }">
                 <h2>Столбец 1 (макс. 3 карточки)</h2>
-                <div v-for="(card, index) in firstColumn" :key="card.id" class="card">
+                <div v-for="(card, index) in filteredFirstColumn" :key="card.id" class="card">
                     <h3>{{ card.title }}</h3>
                     <ul>
                         <li v-for="(item, i) in card.items" :key="i" :class="{ 'completed': item.completed }">
@@ -32,7 +42,7 @@
             </div>
             <div class="column">
                 <h2>Столбец 2 (макс. 5 карточек)</h2>
-                <div v-for="(card, index) in secondColumn" :key="card.id" class="card">
+                <div v-for="(card, index) in filteredSecondColumn" :key="card.id" class="card">
                     <h3>{{ card.title }}</h3>
                     <ul>
                         <li v-for="(item, i) in card.items" :key="i" :class="{ 'completed': item.completed }">
@@ -44,7 +54,7 @@
             </div>
             <div class="column">
                 <h2>Столбец 3 (без ограничений)</h2>
-                <div v-for="(card, index) in thirdColumn" :key="card.id" class="card">
+                <div v-for="(card, index) in filteredThirdColumn" :key="card.id" class="card">
                     <h3>{{ card.title }}</h3>
                     <ul>
                         <li v-for="(item, i) in card.items" :key="i" :class="{ 'completed': item.completed }">

@@ -10,7 +10,8 @@ new Vue({
         firstColumn: [],
         secondColumn: [],
         thirdColumn: [],
-        isFirstColumnLocked: false
+        isFirstColumnLocked: false,
+        searchQuery: '',
     },
     methods: {
         updateCardStatus(index, column) {
@@ -73,6 +74,8 @@ new Vue({
                 return;
             }
 
+            this.closeModal();
+
             this.saveDataToLocalStorage();
 
             this.newCardTitle = '';
@@ -101,6 +104,30 @@ new Vue({
                 this.thirdColumn = data.thirdColumn;
                 this.isFirstColumnLocked = data.isFirstColumnLocked;
             }
+        },
+        clearAllData() {
+            this.firstColumn = [];
+            this.secondColumn = [];
+            this.thirdColumn = [];
+            this.isFirstColumnLocked = false;
+            localStorage.removeItem('boardData');
+        },
+        openModal() {
+            document.getElementById('modal').style.display = 'block';
+        },
+        closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    },
+    computed: {
+        filteredFirstColumn() {
+            return this.firstColumn.filter(card => card.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
+        },
+        filteredSecondColumn() {
+            return this.secondColumn.filter(card => card.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
+        },
+        filteredThirdColumn() {
+            return this.thirdColumn.filter(card => card.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
         }
     },
     watch: {
