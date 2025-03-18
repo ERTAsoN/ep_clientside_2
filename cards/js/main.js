@@ -31,6 +31,8 @@ new Vue({
                 this.moveCard(index, column, 'thirdColumn');
                 card.completedDate = new Date().toLocaleString();
                 this.isFirstColumnLocked = false;
+            } else if (column === 'secondColumn' && completedCount / totalItems <= 0.5 && !this.isFirstColumnLocked) {
+                this.moveCard(index, column, 'firstColumn');
             }
 
             this.checkFirstColumnLock();
